@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🥖 Padaria do Bendito Pão</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body {
+            background: linear-gradient(180deg, #fff8dc 0%, #f5deb3 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 650px; margin: 0 auto; }
+
+        .aviso-principal {
+            background: #ffebee;
+            border: 3px solid #e53935;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        h1 { color: #8b4513; font-size: 1.7rem; text-align: center; margin-bottom: 5px; }
+        .autor { text-align: center; color: #888; font-size: 0.85rem; margin-bottom: 15px; }
+
+        .boas-vindas {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(139,69,19,0.12);
+            margin-bottom: 25px;
+            color: #5c4023;
+            line-height: 1.8;
+            text-align: center;
+        }
+        .boas-vindas h2 { color: #8b4513; margin-bottom: 15px; font-size: 1.3rem; }
+        .endereco-barraca {
+            background: #fff4e0;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #8b4513;
+        }
+        .aviso-lins {
+            color: #c0392b;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        h2.titulo-cardapio {
+            color: #8b4513;
+            margin: 30px 0 15px;
+            font-size: 1.4rem;
+            text-align: center;
+        }
+
+        .categoria {
+            background: #fff;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(139,69,19,0.12);
+        }
+        .categoria h3 {
+            color: #5c4023;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            padding-bottom: 6px;
+            border-bottom: 2px dashed #e8cd9c;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dashed #eee;
+        }
+        .item:last-child { border-bottom: none; }
+        .nome-item { font-size: 1rem; color: #444; }
+
+        .botoes-qtd {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-menos, .btn-mais {
+            width: 34px;
+            height: 34px;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.15s;
+        }
+        .btn-menos { background: #f0c040; color: #5c4023; }
+        .btn-mais { background: #78c878; color: #fff; }
+        .btn-menos:hover { background: #e0b030; }
+        .btn-mais:hover { background: #66b866; }
+        .quantidade {
+            min-width: 28px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #5c4023;
+        }
+
+        .carrinho {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .carrinho h3 {
+            color: #5c4023;
+            margin-bottom: 12px;
+            font-size: 1.15rem;
+        }
+        .lista-itens {
+            min-height: 40px;
+            margin-bottom: 15px;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        .vazio { color: #999; font-style: italic; }
+
+        .dados input {
+            width: 100%;
+            padding: 11px;
+            margin-bottom: 8px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+        .dados input:focus {
+            outline: none;
+            border-color: #78c878;
+        }
+
+        .btn-enviar {
+            width: 100%;
+            background: #ccc;
+            color: #666;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: not-allowed;
+        }
+        .btn-desativado {
+            background: #f0f0f0;
+            color: #999;
+            cursor: not-allowed;
+        }
+
+        .aviso-retirada {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 12px;
+            text-align: center;
+            background: #f0f9ff;
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #8b6b4a;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- ⚠️ AVISO DE FASE DE TESTE -->
+        <div class="aviso-principal">
+            ⚠️ ESTAMOS EM FASE DE TESTE, AINDA NÃO FAZEMOS PEDIDOS!
+        </div>
+
+        <h1>🥖 Padaria do Bendito Pão</h1>
+        <p class="autor">Site feito por Arthur Lopes Ferretti</p>
+
+        <div class="boas-vindas">
+            <h2>Bem-vindo ao site da Panificadora Bendito Pão em Lins SP!</h2>
+            <p>A nossa panificadora vende pães e doces por enquanto. Muito obrigado por estar lendo esta mensagem.</p>
+            <p class="aviso-lins">📍 SÓ FAZEMOS PEDIDOS EM LINS SP</p>
+            <p>Venha ser um cliente nosso! 😁</p>
+            <div class="endereco-barraca">
+                📍 Retire seu pedido na: <strong>Rua José Telles, 221 — Lins-SP</strong> (em frente à casa!)
+            </div>
+        </div>
+
+        <h2 class="titulo-cardapio">📋 Nosso Cardápio</h2>
+
+        <!-- 🥖 PÃES -->
+        <div class="categoria">
+            <h3>🥖 Pães</h3>
+            <div class="item">
+                <span class="nome-item">🥖 Pão Francês</span>
+                <div class="botoes-qtd">
+                    <button class="btn-menos" disabled>−</button>
+                    <span class="quantidade">—</span>
+                    <button class="btn-mais" disabled>+</button>
+                </div>
+            </div>
+            <div class="item">
+                <span class="nome-item">🍞 Pão Caseiro</span>
+                <div class="botoes-qtd">
+                    <button class="btn-menos" disabled>−</button>
+                    <span class="quantidade">—</span>
+                    <button class="btn-mais" disabled>+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🍰 BOLOS -->
+        <div class="categoria">
+            <h3>🍰 Bolos</h3>
+            <div class="item">
+                <span class="nome-item">🍰 Bolo de Fubá com Goiabada</span>
+                <div class="botoes-qtd">
+                    <button class="btn-menos" disabled>−</button>
+                    <span class="quantidade">—</span>
+                    <button class="btn-mais" disabled>+</button>
+                </div>
+            </div>
+            <div class="item">
+                <span class="nome-item">🍞 Bolo de Fubá Normal</span>
+                <div class="botoes-qtd">
+                    <button class="btn-menos" disabled>−</button>
+                    <span class="quantidade">—</span>
+                    <button class="btn-mais" disabled>+</button>
+                </div>
+            </div>
+            <div class="item">
+                <span class="nome-item">🍫 Bolo de Chocolate</span>
+                <div class="botoes-qtd">
+                    <button class="btn-menos" disabled>−</button>
+                    <span class="quantidade">—</span>
+                    <button class="btn-mais" disabled>+</button>
+                </div>
+            </div>
+            <div class="item">
+                <span class="nome-item">🥕 Bolo de Cenoura</span>
+                <div class="botoes-qtd">
+                    <button class="btn-menos" disabled>−</button>
+                    <span class="quantidade">—</span>
+                    <button class="btn-mais" disabled>+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🍬 DOCES -->
+        <div class="categoria">
+            <h3>🍬 Doces</h3>
+            <div class="item">
+                <span class="nome-item">🍫 Brigadeiro</span>
+                <div class="botoes-qtd">
+                    <button class="btn-menos" disabled>−</button>
+                    <span class="quantidade">—</span>
+                    <button class="btn-mais" disabled>+</button>
+                </div>
+            </div>
+            <div class="item">
+                <span class="nome-item">🥥 Beijinho</span>
+                <div class="botoes-qtd">
+                    <button class="btn-menos" disabled>−</button>
+                    <span class="quantidade">—</span>
+                    <button class="btn-mais" disabled>+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🥤 BEBIDAS -->
+        <div class="categoria">
+            <h3>🥤 Bebidas</h3>
+            <div class="item">
+                <span class="nome-item">🍊 Suco de Laranja Natural</span>
+                <div class="botoes-qtd">
+                    <button class="btn-menos" disabled>−</button>
+                    <span class="quantidade">—</span>
+                    <button class="btn-mais" disabled>+</button>
+                </div>
+            </div>
+            <div class="item">
+                <span class="nome-item">💧 Água sem Gás</span>
+                <div class="botoes-qtd">
+                    <button class="btn-menos" disabled>−</button>
+                    <span class="quantidade">—</span>
+                    <button class="btn-mais" disabled>+</button>
+                </div>
+            </div>
+            <div class="item">
+                <span class="nome-item">🫧 Água com Gás</span>
+                <div class="botoes-qtd">
+                    <button class="btn-menos" disabled>−</button>
+                    <span class="quantidade">—</span>
+                    <button class="btn-mais" disabled>+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📦 ÁREA DE PEDIDOS DESATIVADA -->
+        <div class="carrinho">
+            <h3>📦 Pedidos</h3>
+            <p style="color: #999; font-style: italic; text-align: center; padding: 15px;">
+                ⏳ Sistema de pedidos em breve disponível!<br>
+                Por enquanto, faça seu pedido diretamente na barraca! 😁
+            </p>
+        </div>
+
+        <footer>
+            📍 Padaria do Bendito Pão — Rua José Telles, 221, Lins-SP<br>
+            📞 (14) 99909-1526
+        </footer>
+    </div>
+</body>
+</html>
